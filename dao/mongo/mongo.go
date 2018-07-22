@@ -1,4 +1,4 @@
-package dao
+package mongo
 
 import (
 "github.com/melonws/goweb/libs/logHelper"
@@ -12,7 +12,7 @@ func connect() *mgo.Session {
 		Addrs:[]string{"47.104.7.232:27017"},
 		Direct:false,
 		Timeout:time.Second*5,
-		Database:"todo",
+		Database:"photowall",
 		Username:"admin",
 		Password:"123456",
 	}
@@ -47,7 +47,7 @@ func CreateModel(collectionName string) (*mgo.Session, *mgo.Collection) {
 
 	session.SetMode(mgo.Monotonic, true)
 
-	collection := session.DB("todo").C(collectionName)
+	collection := session.DB("photowall").C(collectionName)
 
 	return session, collection
 }

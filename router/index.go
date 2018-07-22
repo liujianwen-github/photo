@@ -1,10 +1,10 @@
 package router
 
 import (
-. "github.com/melonws/goweb/middleware"
-"gopkg.in/gin-gonic/gin.v1"
-"../middleWare"
-. "../controller"
+	. "../controller"
+	"../middleWare"
+	. "github.com/melonws/goweb/middleware"
+	"gopkg.in/gin-gonic/gin.v1"
 )
 
 /**
@@ -21,13 +21,13 @@ func InitRouter() *gin.Engine {
 	router.Use(AuthMiddleWare())
 	router.Use(middleWare.Cors())
 	{
-		router.GET("/",IndexApi)
-		router.POST("/photo/item",CreateItem)
+		router.GET("/", IndexApi)
+		router.POST("/photo/item", CreateItem)
 		//router.POST("/todo/item", AddTodo)
 		//router.DELETE("/todo/item/:id",DeleteTodo)
 		//router.PUT("/todo/item/:id",UpdateTodo)
 		//router.GET("/todo/item/:id",GetTodo)
-		//router.GET("/todo/list",GetList)
+		router.GET("/photo/items", GetList)
 	}
 
 	//群组
