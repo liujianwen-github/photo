@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"fmt"
 	"gopkg.in/gin-gonic/gin.v1"
 	"net/http"
 	//"github.com/gin-gonic/gin"
@@ -83,11 +84,17 @@ func CreateItem(c *gin.Context) {
 //获取全部todo
 func GetList(c *gin.Context) {
 	status, data, err := models.GetList()
+	fmt.Println(data)
 	checkData(c, status, data, err)
-
 }
 
-// 检查操作结果是否正确并返回相应的response
+/**
+ * @Author      ljw
+ * @DateTime    2018-07-28
+ * @title       [data controll]
+ * @description [检查函数执行状态，并返回对应处理的response]
+ * @return      {[type]}
+ */
 func checkData(c *gin.Context, status int, data interface{}, err error) {
 	println(c, status, data, err)
 	if err != nil {
