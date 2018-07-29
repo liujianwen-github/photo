@@ -2,13 +2,14 @@ package main
 
 import (
 	. "./router"
+	"fmt"
 )
 
 func main() {
 
 	router := InitRouter()
-	router.Run("localhost:8000")
-	println("server is running at 8000")
+	router.Run(":8001")
+	println("server is running at 8001")
 	//初始化congtroller
 	//controller.InitController()
 }

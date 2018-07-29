@@ -1,10 +1,10 @@
 package middleWare
 
 import (
-	"strings"
 	"fmt"
-	"net/http"
 	"gopkg.in/gin-gonic/gin.v1"
+	"net/http"
+	"strings"
 )
 
 func Cors() gin.HandlerFunc {
