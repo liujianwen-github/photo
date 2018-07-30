@@ -39,7 +39,7 @@ func CreateItem(c *gin.Context) {
 	cipherStr := md.Sum(nil)
 	fileName = hex.EncodeToString(cipherStr) + ".jpg"  // 拼接文件名称
 	storagePath := config.Config["imgPath"] + fileName // 文件存储路径
-	visitPath := config.Config["nginxPath"] + fileName
+	visitPath := "//" + config.Config["nginxPath"] + fileName
 	out, err := os.Create(storagePath)
 	if err != nil {
 		println(err)
