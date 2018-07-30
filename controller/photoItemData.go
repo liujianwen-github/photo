@@ -37,8 +37,10 @@ func CreateItem(c *gin.Context) {
 	println(timestamp)
 	md.Write([]byte(strconv.FormatInt(timestamp, 10) + fileName)) // 转换为md5格式，时间戳+文件名
 	cipherStr := md.Sum(nil)
-	fileName = config.Config["imgPath"] + hex.EncodeToString(cipherStr) + ".jpg" // 拼接文件路径名称
-	out, err := os.Create(fileName)
+	fileName = hex.EncodeToString(cipherStr) + ".jpg"  // 拼接文件名称
+	storagePath := config.Config["imgPath"] + fileName // 文件存储路径
+	visitPath := config.Config["nginxPath"] + fileName
+	out, err := os.Create(storagePath)
 	if err != nil {
 		println(err)
 		logHelper.WriteLog("读取文件失败,错误原因"+err.Error(), "error/service")
@@ -63,13 +65,13 @@ func CreateItem(c *gin.Context) {
 		})
 		return
 	}
-	logHelper.WriteLog("接收文件，存储路径为"+fileName, "system/access")
-	stat, err := models.AddItem(&models.PhotoItem{title, config.Config["nginxPath"] + hex.EncodeToString(cipherStr) + ".jpg", time.Now().Unix()})
+	logHelper.WriteLog("接收文件，存储路径为"+storagePath+",访问路径为"+visitPath, "system/access")
+	stat, err := models.AddItem(&models.PhotoItem{title, visitPath, time.Now().Unix()})
 	//抛出stat为1正常，0失败
 	if stat == 1 {
 		c.JSON(http.StatusOK, gin.H{
 			"status":  http.StatusOK,
-			"message": "上传成功，文件路径为" + fileName,
+			"message": "上传成功，文件路径为" + visitPath,
 			"data":    []int{},
 		})
 	} else {

@@ -1,0 +1,21 @@
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] GET    /                         --> photo/controller.IndexApi (5 handlers)
+[GIN-debug] POST   /photo/item               --> photo/controller.CreateItem (5 handlers)
+[GIN-debug] GET    /photo/items              --> photo/controller.GetList (5 handlers)
+[GIN-debug] Listening and serving HTTP on :8001
+init controller
+[GIN] 2018/07/30 - 15:16:40 | 200 [0m|     100.309µs |             ::1 |  GET [0m    /
+init controller
+[GIN] 2018/07/30 - 15:16:46 | 200 [0m|      26.669µs |             ::1 |  GET [0m    /
+init controller
+[GIN] 2018/07/30 - 15:16:48 | 200 [0m|      32.998µs |             ::1 |  GET [0m    /
+init controller
+[GIN] 2018/07/30 - 15:16:49 | 200 [0m|      34.393µs |             ::1 |  GET [0m    /
+返回值
+[map[_id:ObjectIdHex("5b5c3bc338fc9c8939f74545") title:刘建文测试01 imgs:/Users/ljw/Documents/study/photofe/static/103e81a0c7003424a719bc203c7ab8cd.jpg]]
+[map[_id:ObjectIdHex("5b5c3bc338fc9c8939f74545") title:刘建文测试01 imgs:/Users/ljw/Documents/study/photofe/static/103e81a0c7003424a719bc203c7ab8cd.jpg]]
+0xc4200e0630 1 (0x15d56c0,0xc42000c3c0) (0x0,0x0)
+[GIN] 2018/07/30 - 15:16:54 | 200 [0m|  116.723844ms |             ::1 |  GET [0m    /photo/items
