@@ -64,7 +64,7 @@ func CreateItem(c *gin.Context) {
 		return
 	}
 	logHelper.WriteLog("接收文件，存储路径为"+fileName, "system/access")
-	stat, err := models.AddItem(&models.PhotoItem{title, fileName, time.Now().Unix()})
+	stat, err := models.AddItem(&models.PhotoItem{title, config.Config["nginxPath"] + hex.EncodeToString(cipherStr) + ".jpg", time.Now().Unix()})
 	//抛出stat为1正常，0失败
 	if stat == 1 {
 		c.JSON(http.StatusOK, gin.H{
