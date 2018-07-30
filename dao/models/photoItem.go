@@ -1,11 +1,11 @@
 package models
 
 import (
-	"../mongo"
 	"fmt"
 	"github.com/melonws/goweb/libs/logHelper"
 	"github.com/pkg/errors"
 	"gopkg.in/mgo.v2/bson"
+	"photo/dao/mongo"
 )
 
 type PhotoItem struct {

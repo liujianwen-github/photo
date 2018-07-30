@@ -1,7 +1,7 @@
 package main
 
 import (
-	. "./router"
+	. "photo/router"
 )
 
 func main() {

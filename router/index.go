@@ -1,10 +1,10 @@
 package router
 
 import (
-	. "../controller"
-	"../middleWare"
 	. "github.com/melonws/goweb/middleware"
 	"gopkg.in/gin-gonic/gin.v1"
+	. "photo/controller"
+	"photo/middleWare"
 )
 
 /**
