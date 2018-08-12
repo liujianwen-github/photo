@@ -55,7 +55,7 @@ func GetList() (status int, data interface{}, err error) {
 	// 接受数据结果（不能用Result直接定义结果，感觉可以，但是不能实现，有待理解
 	var values []interface{}
 	//筛选字段,_id主键默认返回，如不需要返回id，需要显式定义_id为0
-	filter := bson.M{"title": 1, "imgs": 1, "createAt": 1}
+	filter := bson.M{"title": 1, "imgs": 1,"desc":1, "createAt": 1}
 	error := connection.Find(query).Select(filter).All(&values)
 	println("返回值")
 	fmt.Println(values)
