@@ -31,7 +31,7 @@ func AddItem(t *PhotoItem) (status int64, err error) {
 	defer session.Close()
 	data := &PhotoItem{
 		Title:    t.Title,
-		Desc:	  t.desc,
+		Desc:	  t.Desc,
 		Imgs:     t.Imgs,
 		CreateAt: t.CreateAt,
 	}
