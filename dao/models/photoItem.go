@@ -10,11 +10,13 @@ import (
 
 type PhotoItem struct {
 	Title    string `bson:"title"`
+	Desc	 string `bason:"desc"`
 	Imgs     string `bson:"imgs"`
 	CreateAt int64  `bson:"create_at"`
 }
 type return_photo_item struct {
 	title    string `json:"title"`
+	desc	 string `bason:"desc"`
 	imgs     string `json:"imgs"`
 	createAt int64  `json:"create_at"`
 }
@@ -29,6 +31,7 @@ func AddItem(t *PhotoItem) (status int64, err error) {
 	defer session.Close()
 	data := &PhotoItem{
 		Title:    t.Title,
+		Desc:	  t.desc,
 		Imgs:     t.Imgs,
 		CreateAt: t.CreateAt,
 	}
