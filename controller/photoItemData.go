@@ -22,7 +22,7 @@ func CreateItem(c *gin.Context) {
 	file, header, err := c.Request.FormFile("imgs")
 
 	title := c.PostForm("title")
-	fmt.Println(title)
+	desc := c.PostForm("desc")
 	//文件不存在，返回错误信息
 	if err != nil {
 		logHelper.WriteLog("未获取到用户上传文件,错误原因"+err.Error(), "error/service")
@@ -94,7 +94,7 @@ func CreateItem(c *gin.Context) {
 		//finish()
 	}
 	logHelper.WriteLog("接收文件，存储路径为"+storagePath+",访问路径为"+visitPath, "system/access")
-	stat, err := models.AddItem(&models.PhotoItem{title, visitPath, time.Now().Unix()})
+	stat, err := models.AddItem(&models.PhotoItem{title,desc, visitPath, time.Now().Unix()})
 	//抛出stat为1正常，0失败
 	if stat == 1 {
 		c.JSON(http.StatusOK, gin.H{
