@@ -14,12 +14,15 @@ import (
 	"photo/dao/models"
 	"strconv"
 	"time"
+	. "photo/util"
 )
 
 //创建一条数据记录
 func CreateItem(c *gin.Context) {
 	file, header, err := c.Request.FormFile("imgs")
+
 	title := c.PostForm("title")
+	fmt.Println(title)
 	//文件不存在，返回错误信息
 	if err != nil {
 		logHelper.WriteLog("未获取到用户上传文件,错误原因"+err.Error(), "error/service")
@@ -65,14 +68,39 @@ func CreateItem(c *gin.Context) {
 		})
 		return
 	}
+
+	/** 单个 */
+	/** 如果输入文件，那么是单个，允许自定义路径 */
+	var inputArgs InputArgs
+	inputArgs.LocalPath = storagePath
+	inputArgs.Quality= 70
+	inputArgs.Width = 200
+	_,format,top := IsPictureFormat(inputArgs.LocalPath)
+	fmt.Println("开始单张压缩...")
+	inputArgs.OutputPath = top + "_compress." + format
+	if !ImageCompress(
+		func() (io.Reader, error) {
+			return os.Open(inputArgs.LocalPath)
+		},
+		func() (*os.File, error) {
+			return os.Open(inputArgs.LocalPath)
+		},
+		inputArgs.OutputPath,
+		inputArgs.Quality,
+		inputArgs.Width, format) {
+		fmt.Println("生成缩略图失败")
+	} else {
+		fmt.Println("生成缩略图成功 " + inputArgs.OutputPath)
+		//finish()
+	}
 	logHelper.WriteLog("接收文件，存储路径为"+storagePath+",访问路径为"+visitPath, "system/access")
 	stat, err := models.AddItem(&models.PhotoItem{title, visitPath, time.Now().Unix()})
 	//抛出stat为1正常，0失败
 	if stat == 1 {
 		c.JSON(http.StatusOK, gin.H{
 			"status":  http.StatusOK,
-			"message": "上传成功，文件路径为" + visitPath,
-			"data":    []int{},
+			"message": "上传成功",
+			"data":    visitPath,
 		})
 	} else {
 		c.JSON(http.StatusOK, gin.H{
